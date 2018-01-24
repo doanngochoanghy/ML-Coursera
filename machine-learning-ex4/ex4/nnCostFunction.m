@@ -73,17 +73,16 @@ z3=a2*Theta2';
 a3=sigmoid(z3);
 J=sum(sum(-yt.*log(a3)-(1-yt).*log(1-a3)))/m+lambda/2/m*(sum(sum(Theta1(:,2:end).^2))+sum(sum(Theta2(:,2:end).^2)));
 
-
-for i=1:m
   delta3=a3-yt;
-  delta2=Theta2'*delta3'.*sigmoidGradient(z2);
-  delta2=delta2(2:end);
-  Theta2_grad=Theta2_grad+delta3*a2';
-  Theta1_grad=Theta1_grad+delta2*X';
+  delta2=delta3*Theta2.*sigmoidGradient([ones(m,1),z2]);
+  delta2=delta2(:,2:end);
+  Theta2_grad=Theta2_grad+delta3'*a2;
+  Theta2_grad(:,2:end)=Theta2_grad(:,2:end)+lambda*Theta2(:,2:end);
+  Theta1_grad=Theta1_grad+delta2'*X;
+  Theta1_grad(:,2:end)=Theta1_grad(:,2:end)+lambda*Theta1(:,2:end);
   Theta2_grad=Theta2_grad/m;
   Theta1_grad=Theta1_grad/m;
 
-end
 
 
 
