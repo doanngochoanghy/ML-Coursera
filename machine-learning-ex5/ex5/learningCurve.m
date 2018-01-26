@@ -52,11 +52,18 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
-for i = 1:m
-  t=trainLinearReg(X(1:i,:),y(1:i),0);
-  [error_train,grad_train]=linearRegCostFunction(X(1:i,:),y(1:i),t,0);
-  t=trainLinearReg(Xval(1:i,:),yval(1:i),0);
-  [error_val,grad_train]=linearRegCostFunction(Xval(1:i,:),yval(1:i),t,0);
+for i = 2:m
+  t=trainLinearReg(X(1:i,:),y(1:i),lambda);
+  [error_train(i)]=linearRegCostFunction(X(1:i,:),y(1:i),t,lambda);
+%  t=trainLinearReg(Xval(1:i,:),yval(1:i),1);
+  [error_val(i)]=linearRegCostFunction(Xval,yval,t,lambda);
+%  if (i==1)
+%		error_train=e_train;
+%		error_val=e_val;
+%	else
+%		error_train=[error_train; e_train];
+%		error_val=[error_val; e_val];
+%	end
 end
 
 

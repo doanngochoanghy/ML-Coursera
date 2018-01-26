@@ -21,7 +21,7 @@ grad = zeros(size(theta));
 
 %X=[ones(m,1),X];
 J=sum((X*theta-y).^2);
-J(2:end)=J(2:end)+lambda*sum(theta(2:end).^2);
+J=J+lambda*sum(theta(2:end).^2);
 J=J/2/m;
 
 
