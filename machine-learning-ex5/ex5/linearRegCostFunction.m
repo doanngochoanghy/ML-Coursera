@@ -25,9 +25,10 @@ J=J+lambda*sum(theta(2:end).^2);
 J=J/2/m;
 
 
-grad=sum((X*theta-y).*X);
-grad(2:end)=grad(2:end)+lambda*theta(2:end);
-grad=grad/m;
+mask = ones(size(theta));
+mask(1) = 0;
+
+grad = 1 / m * ((X * theta - y)' * X)' + lambda / m * (theta .* mask);
 
 
 
